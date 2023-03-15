@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Library's options
-option(LANG_MODEL_STATIC_BUILD "Build lang-model as static library" ON)
+option(LANG_MODEL_STATIC_BUILD "Build lang-model as static library" OFF)
 option(LANG_MODEL_BUILD_EXAMPLE "Build example application with using lang-model" ON)
 option(LANG_MODEL_BUILD_TESTS "Build tests for avm-editor library" ON)
 
@@ -21,14 +21,15 @@ include_directories(${INCLUDE_PATH})
 
 # Collecting project's public headers
 set(LANG_MODEL_PUBLIC_HEADERS
-    include/${PROJECT_NAME}/expression.hpp
+    include/${PROJECT_NAME}/export.hpp
+    include/${PROJECT_NAME}/expr.hpp
     include/${PROJECT_NAME}/exp_type.hpp
     include/lang-model.hpp
 )
 
 # Collecting project's sources
 set(LANG_MODEL_SOURCES
-    src/expression.cpp
+    src/expr.cpp
 )
 
 # Compilation static library
