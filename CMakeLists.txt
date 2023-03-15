@@ -21,17 +21,24 @@ include_directories(${INCLUDE_PATH})
 
 # Collecting project's public headers
 set(LANG_MODEL_PUBLIC_HEADERS
+    include/${PROJECT_NAME}.hpp
+    # Core features
     include/${PROJECT_NAME}/export.hpp
     include/${PROJECT_NAME}/expr.hpp
     include/${PROJECT_NAME}/expr_type.hpp
     include/${PROJECT_NAME}/expr_visitor.hpp
-    include/${PROJECT_NAME}.hpp
+    # Expressions implementation
+    include/${PROJECT_NAME}/const_expr.hpp
+    # Work with files and this parsing
+    include/${PROJECT_NAME}/parser/file_reader.hpp
 )
 
 # Collecting project's sources
 set(LANG_MODEL_SOURCES
     src/expr.cpp
     src/expr_visitor.cpp
+    src/const_expr.cpp
+    src/parser/file_reader.cpp
 )
 
 # Compilation static library
