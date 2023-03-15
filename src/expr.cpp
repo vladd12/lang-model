@@ -17,4 +17,4 @@ bool Expression::canReduce() const noexcept
     return false;
 }
 
-}
+} // namespace Expressions

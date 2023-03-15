@@ -23,13 +23,15 @@ include_directories(${INCLUDE_PATH})
 set(LANG_MODEL_PUBLIC_HEADERS
     include/${PROJECT_NAME}/export.hpp
     include/${PROJECT_NAME}/expr.hpp
-    include/${PROJECT_NAME}/exp_type.hpp
-    include/lang-model.hpp
+    include/${PROJECT_NAME}/expr_type.hpp
+    include/${PROJECT_NAME}/expr_visitor.hpp
+    include/${PROJECT_NAME}.hpp
 )
 
 # Collecting project's sources
 set(LANG_MODEL_SOURCES
     src/expr.cpp
+    src/expr_visitor.cpp
 )
 
 # Compilation static library

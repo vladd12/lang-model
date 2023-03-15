@@ -1,19 +1,13 @@
-#include <lang-model/exp_type.hpp>
+#pragma once
+
 #include <lang-model/export.hpp>
-#include <memory>
+#include <lang-model/expr_type.hpp>
+#include <lang-model/expr_visitor.hpp>
 
 namespace Expressions
 {
 
-class Expression;
-using ExpressionPtr = std::shared_ptr<Expression>;
-
-class ExpressionVisitor
-{
-public:
-    void visit(Expression *expr);
-};
-
+/// \brief The base class from which the classes that represent expression tree nodes are derived.
 class libapi Expression
 {
 private:
