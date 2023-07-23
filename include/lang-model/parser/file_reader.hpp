@@ -7,19 +7,18 @@
 namespace Parse
 {
 
-using StringList = std::vector<std::string>;
-
 class libapi FileReader
 {
 private:
-    StringList buffer;
-
-    auto count();
-    void splitFileToBuffer(const std::string &fileStr);
+    std::string fileString;
+    std::string_view fileView;
 
 public:
-    FileReader() = default;
+    explicit FileReader() = default;
+    explicit FileReader(const std::string &filepath);
     void readFile(const std::string &filepath);
+
+    const std::string_view &getBuffer() const noexcept;
 };
 
 } // namespace Parse

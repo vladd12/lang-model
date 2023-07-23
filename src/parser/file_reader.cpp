@@ -5,20 +5,29 @@
 namespace Parse
 {
 
+FileReader::FileReader(const std::string &filepath)
+{
+    readFile(filepath);
+}
+
 void FileReader::readFile(const std::string &filepath)
 {
     std::ifstream file(filepath);
+    file.exceptions(std::ios_base::badbit);
+    /// TODO: Replace by errorFlag
+    if (!file)
+    {
+        throw std::ios_base::failure("file does not exist");
+    }
     std::ostringstream stringStream;
     stringStream << file.rdbuf();
-    auto fileString = stringStream.str();
-    splitFileToBuffer(fileString);
+    fileString = stringStream.str();
+    fileView = fileString;
 }
 
-void FileReader::splitFileToBuffer(const std::string &fileStr)
+const std::string_view &FileReader::getBuffer() const noexcept
 {
-    ;
+    return fileView;
 }
 
 } // namespace Parse
-
-std::string::difference_type n = std::count(s.begin(), s.end(), '_');
