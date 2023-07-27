@@ -5,8 +5,8 @@ include(get_gtest)
 
 # Collecting tests sources
 set(TESTS_SOURCES
-    tests.cpp
-    parser/file_reader_test.cpp
+    parser/file_reader_tests.cpp
+    parser/lexer_tests.cpp
 )
 # Collecting test's external files
 set(TEST_FILES

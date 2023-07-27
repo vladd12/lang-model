@@ -31,6 +31,7 @@ set(LANG_MODEL_PUBLIC_HEADERS
     include/${PROJECT_NAME}/const_expr.hpp
     # Work with files and this parsing
     include/${PROJECT_NAME}/parser/file_reader.hpp
+    include/${PROJECT_NAME}/parser/lexer.hpp
 )
 
 # Collecting project's sources
@@ -39,6 +40,7 @@ set(LANG_MODEL_SOURCES
     src/expr_visitor.cpp
     src/const_expr.cpp
     src/parser/file_reader.cpp
+    src/parser/lexer.cpp
 )
 
 # Compilation static library
