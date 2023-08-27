@@ -6,7 +6,7 @@ include(get_gtest)
 # Collecting tests sources
 set(TESTS_SOURCES
     parser/file_reader_tests.cpp
-    parser/lexer_tests.cpp
+    parser/tokenizer_tests.cpp
 )
 # Collecting test's external files
 set(TEST_FILES
