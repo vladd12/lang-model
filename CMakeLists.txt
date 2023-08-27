@@ -21,7 +21,7 @@ include_directories(${INCLUDE_PATH})
 
 # Collecting project's public headers
 set(LANG_MODEL_PUBLIC_HEADERS
-    include/${PROJECT_NAME}.hpp
+    #include/${PROJECT_NAME}.hpp
     # Core features
     include/${PROJECT_NAME}/export.hpp
     include/${PROJECT_NAME}/expr.hpp

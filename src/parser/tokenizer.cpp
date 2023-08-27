@@ -27,7 +27,7 @@ void Tokenizer::addToken(const std::string_view &token) noexcept
 void Tokenizer::scanSpecialSymbols(std::string_view &possibleToken) noexcept
 {
     using namespace std::string_view_literals;
-    constexpr std::string_view special_sym("+-/*^><;{}[]()@"sv);
+    constexpr std::string_view special_sym("=([{+-/*^><@}]);"sv);
     auto searchIndex = notFound;
 
     do
@@ -37,7 +37,7 @@ void Tokenizer::scanSpecialSymbols(std::string_view &possibleToken) noexcept
         {
             // TODO: What about '[[', ']]', '<<', '>>' and '**'? Think about it later.
             auto firstToken = possibleToken.substr(0, searchIndex);
-            auto secondToken = possibleToken.substr(searchIndex, searchIndex + 1);
+            auto secondToken = possibleToken.substr(searchIndex, 1);
             addToken(firstToken);
             addToken(secondToken);
 
@@ -45,7 +45,7 @@ void Tokenizer::scanSpecialSymbols(std::string_view &possibleToken) noexcept
             if ((searchIndex + 1) == possibleToken.size())
                 searchIndex = notFound;
             else
-                possibleToken = possibleToken.substr(searchIndex + 2);
+                possibleToken = possibleToken.substr(searchIndex + 1);
         }
         else
         {
