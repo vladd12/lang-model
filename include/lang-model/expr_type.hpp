@@ -6,7 +6,7 @@ namespace Expressions
 {
 
 /// \brief Describes the node types for the nodes of an expression tree.
-enum ExpressionType : std::uint8_t
+enum class ExpressionType : std::uint8_t
 {
     Undefined = 0, ///< Undefined expression type.
 

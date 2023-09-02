@@ -11,7 +11,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Library's options
 option(LANG_MODEL_STATIC_BUILD "Build lang-model as static library" OFF)
-option(LANG_MODEL_BUILD_EXAMPLE "Build example application with using lang-model" ON)
+option(LANG_MODEL_BUILD_INTERPRETER "Build interpreter with using lang-model" ON)
 option(LANG_MODEL_BUILD_TESTS "Build tests for avm-editor library" ON)
 
 # Include directory with project's public headers
@@ -66,15 +66,15 @@ endif()
 target_compile_definitions(${PROJECT_NAME} PUBLIC -DCMAKE_CONFIG)
 target_include_directories(${PROJECT_NAME} INTERFACE ${INCLUDE_PATH})
 
-# If enabled building example
-if(LANG_MODEL_BUILD_EXAMPLE)
+# If enabled building interpreter
+if(LANG_MODEL_BUILD_INTERPRETER)
     message(STATUS "Example building is enabled")
-#    add_subdirectory(example)
+    add_subdirectory(interpreter)
 endif()
 
 # If enabled building tests for library
 if(LANG_MODEL_BUILD_TESTS)
-   message(STATUS "Tests building is enabled")
+    message(STATUS "Tests building is enabled")
     include(CTest)
     enable_testing(true)
     add_subdirectory(tests)
