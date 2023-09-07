@@ -32,6 +32,8 @@ set(LANG_MODEL_PUBLIC_HEADERS
     # Work with files and this parsing
     include/${PROJECT_NAME}/parser/file_reader.hpp
     include/${PROJECT_NAME}/parser/tokenizer.hpp
+    #
+    include/${PROJECT_NAME}/promt.hpp
 )
 
 # Collecting project's sources
@@ -41,26 +43,25 @@ set(LANG_MODEL_SOURCES
     src/const_expr.cpp
     src/parser/file_reader.cpp
     src/parser/tokenizer.cpp
+    src/promt.cpp
 )
 
-# Compilation static library
 if (LANG_MODEL_STATIC_BUILD)
+    # Compilation static library
     message(STATUS "${PROJECT_NAME} is static library")
-    add_library(${PROJECT_NAME} STATIC
-        ${LANG_MODEL_PUBLIC_HEADERS}
-        ${LANG_MODEL_SOURCES}
-    )
+    add_library(${PROJECT_NAME} STATIC)
     target_compile_definitions(${PROJECT_NAME} PUBLIC -DSTATIC_BUILD)
-# Compilation dynamic library
 else()
+    # Compilation dynamic library
     message(STATUS "${PROJECT_NAME} is dynamic library")
-    add_library(${PROJECT_NAME} SHARED
-        ${LANG_MODEL_PUBLIC_HEADERS}
-        ${LANG_MODEL_SOURCES}
-    )
+    add_library(${PROJECT_NAME} SHARED)
     target_compile_definitions(${PROJECT_NAME} PRIVATE -DLIB_EXPORT)
     target_compile_definitions(${PROJECT_NAME} INTERFACE -DLIB_IMPORT)
 endif()
+target_sources(${PROJECT_NAME}
+    INTERFACE ${LANG_MODEL_PUBLIC_HEADERS}
+    PRIVATE   ${LANG_MODEL_SOURCES}
+)
 
 # Library compilation settings
 target_compile_definitions(${PROJECT_NAME} PUBLIC -DCMAKE_CONFIG)
