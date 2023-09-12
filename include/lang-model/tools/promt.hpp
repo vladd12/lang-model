@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <lang-model/export.hpp>
 #include <string>
 
@@ -15,7 +16,7 @@ public:
     Promt() = default;
     ~Promt() = default;
 
-    void run() noexcept;
+    void run(std::istream &inputStream = std::cin) noexcept;
 };
 
 } // namespace tools

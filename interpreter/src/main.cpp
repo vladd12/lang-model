@@ -1,5 +1,6 @@
 #include <boost/program_options.hpp>
-#include <interpreter.hpp>
+//#include <interpreter.hpp>
+#include <lang-model/promt.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -29,6 +30,8 @@ int main(int argc, char *argv[])
     // run promt
     else
     {
+        tools::Promt promt;
+        promt.run();
         // TODO: execute interpreter promt
     }
 
