@@ -15,10 +15,19 @@ set(TEST_FILES
 
 # Compiling tests as executable file
 add_executable(${PROJECT_NAME} ${TESTS_SOURCES})
+# Registering test for ctest
+add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME})
+
 # Linking googletest and execstd libraries
 target_link_libraries(${PROJECT_NAME} PUBLIC
     GTest::GTest
     lang-model
+)
+# Adding to test environment PATH variable path do lang-model library
+set_tests_properties(${PROJECT_NAME}
+    PROPERTIES
+        # Make sure DLL is found by adding its directory to PATH
+        ENVIRONMENT "PATH=$<TARGET_PROPERTY:lang-model,BINARY_DIR>\;"
 )
 
 # Copy external test's files to binary directory
@@ -26,6 +35,3 @@ add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${TEST_FILES} ${CMAKE_CURRENT_BINARY_DIR}
 )
-
-# Register test for ctest
-add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME})
