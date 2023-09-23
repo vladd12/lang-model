@@ -68,14 +68,14 @@ jobs:
     - name: Install Conan version ${{ matrix.conan_version }}
       run: pip install conan=="${{ matrix.conan_version }}"
 
-    - name: Install Ninja
-      run: pip install ninja
+#    - name: Install Ninja
+#      run: pip install ninja
 
-    - name: Configure environment variables for Windows build
-      if: runner.os == 'Windows'
-      shell: cmd
-      run: |
-        call "${{ matrix.environment_script }}"
+#    - name: Configure environment variables for Windows build
+#      if: runner.os == 'Windows'
+#      shell: cmd
+#      run: |
+#        call "${{ matrix.environment_script }}"
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required
@@ -87,7 +87,7 @@ jobs:
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -S ${{ github.workspace }}
-        -GNinja
+#        -GNinja
 
     - name: Build
       # Build your program with the given configuration. Note that --config is needed

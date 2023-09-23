@@ -27,7 +27,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 set_tests_properties(${PROJECT_NAME}
     PROPERTIES
         # Make sure DLL is found by adding its directory to PATH
-        ENVIRONMENT "PATH=$<TARGET_PROPERTY:lang-model,BINARY_DIR>\;"
+        ENVIRONMENT "PATH=$<TARGET_PROPERTY:lang-model,BINARY_DIR>/;$<TARGET_PROPERTY:lang-model,BINARY_DIR>/Release/"
 )
 
 # Copy external test's files to binary directory

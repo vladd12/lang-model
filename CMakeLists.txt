@@ -16,7 +16,7 @@ option(LANG_MODEL_BUILD_TESTS "Build tests for avm-editor library" ON)
 
 include(get_conan) # Getting cmake-conan
 include(get_boost) # Getting boost library with conan
-find_package(Boost COMPONENTS boost headers REQUIRED) # Finding boost
+find_package(Boost COMPONENTS boost program_options REQUIRED) # Finding boost
 
 # Collecting project's public headers
 set(LANG_MODEL_PUBLIC_HEADERS
@@ -69,7 +69,7 @@ message(STATUS "${PROJECT_NAME} project include path: ${INCLUDE_PATH}")
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_PATH})
 
 # Linking boost::program_options
-target_link_libraries(${PROJECT_NAME} PUBLIC Boost::boost)
+target_link_libraries(${PROJECT_NAME} PUBLIC Boost::program_options)
 
 # If enabled building interpreter
 if(LANG_MODEL_BUILD_INTERPRETER)

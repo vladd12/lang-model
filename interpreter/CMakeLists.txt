@@ -4,12 +4,11 @@ message(STATUS "${PROJECT_NAME} project include path: ${INCLUDE_PATH}")
 
 # Collecting interpreter's headers
 set(INTERPRETER_HEADERS
-  include/interpreter.hpp
+#  include/interpreter.hpp
 )
 
 # Collecting interpreter's sources
 set(INTERPRETER_SOURCES
-  src/interpreter.cpp
   src/main.cpp
 )
 
