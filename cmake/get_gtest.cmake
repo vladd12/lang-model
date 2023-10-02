@@ -1,5 +1,7 @@
 include(FetchContent)
 
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+
 # Getting googletest sources from GitHub repository
 FetchContent_Declare(
     googletest

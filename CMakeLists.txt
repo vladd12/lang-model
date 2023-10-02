@@ -11,13 +11,12 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Library's options
 option(LANG_MODEL_STATIC_BUILD "Build lang-model as static library" OFF)
-option(LANG_MODEL_BUILD_EXAMPLE "Build example application with using lang-model" ON)
+option(LANG_MODEL_BUILD_INTERPRETER "Build interpreter with using lang-model" ON)
 option(LANG_MODEL_BUILD_TESTS "Build tests for avm-editor library" ON)
 
-# Include directory with project's public headers
-set(INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/include)
-message(STATUS "${PROJECT_NAME} project include path: ${INCLUDE_PATH}")
-include_directories(${INCLUDE_PATH})
+include(get_conan) # Getting cmake-conan
+include(get_boost) # Getting boost library with conan
+find_package(Boost COMPONENTS boost program_options REQUIRED) # Finding boost
 
 # Collecting project's public headers
 set(LANG_MODEL_PUBLIC_HEADERS
@@ -32,6 +31,8 @@ set(LANG_MODEL_PUBLIC_HEADERS
     # Work with files and this parsing
     include/${PROJECT_NAME}/parser/file_reader.hpp
     include/${PROJECT_NAME}/parser/tokenizer.hpp
+    # Some interpreter and compilator tools
+    include/${PROJECT_NAME}/tools/interpreter.hpp
 )
 
 # Collecting project's sources
@@ -41,40 +42,44 @@ set(LANG_MODEL_SOURCES
     src/const_expr.cpp
     src/parser/file_reader.cpp
     src/parser/tokenizer.cpp
+    src/tools/interpreter.cpp
 )
 
 # Compilation static library
 if (LANG_MODEL_STATIC_BUILD)
     message(STATUS "${PROJECT_NAME} is static library")
-    add_library(${PROJECT_NAME} STATIC
-        ${LANG_MODEL_PUBLIC_HEADERS}
-        ${LANG_MODEL_SOURCES}
-    )
+    add_library(${PROJECT_NAME} STATIC)
     target_compile_definitions(${PROJECT_NAME} PUBLIC -DSTATIC_BUILD)
 # Compilation dynamic library
 else()
     message(STATUS "${PROJECT_NAME} is dynamic library")
-    add_library(${PROJECT_NAME} SHARED
-        ${LANG_MODEL_PUBLIC_HEADERS}
-        ${LANG_MODEL_SOURCES}
-    )
+    add_library(${PROJECT_NAME} SHARED)
     target_compile_definitions(${PROJECT_NAME} PRIVATE -DLIB_EXPORT)
     target_compile_definitions(${PROJECT_NAME} INTERFACE -DLIB_IMPORT)
 endif()
+# Setting target source files
+target_sources(${PROJECT_NAME}
+    PRIVATE ${LANG_MODEL_PUBLIC_HEADERS} ${LANG_MODEL_SOURCES}
+)
 
-# Library compilation settings
-target_compile_definitions(${PROJECT_NAME} PUBLIC -DCMAKE_CONFIG)
-target_include_directories(${PROJECT_NAME} INTERFACE ${INCLUDE_PATH})
+# Include directory with project's public headers
+set(INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/include)
+message(STATUS "${PROJECT_NAME} project include path: ${INCLUDE_PATH}")
+# Library include settings
+target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_PATH})
 
-# If enabled building example
-if(LANG_MODEL_BUILD_EXAMPLE)
+# Linking boost::program_options
+target_link_libraries(${PROJECT_NAME} PUBLIC Boost::program_options)
+
+# If enabled building interpreter
+if(LANG_MODEL_BUILD_INTERPRETER)
     message(STATUS "Example building is enabled")
-#    add_subdirectory(example)
+    add_subdirectory(interpreter)
 endif()
 
 # If enabled building tests for library
 if(LANG_MODEL_BUILD_TESTS)
-   message(STATUS "Tests building is enabled")
+    message(STATUS "Tests building is enabled")
     include(CTest)
     enable_testing(true)
     add_subdirectory(tests)
