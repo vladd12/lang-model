@@ -1,4 +1,6 @@
-#include <lang-model/tools/interpreter.hpp>
+#include "lang-model/tools/interpreter.hpp"
+
+#include <lang-model/parser/file_reader.hpp>
 
 namespace tools
 {
@@ -19,7 +21,7 @@ void Interpreter::runLine(const std::string_view &line) noexcept
     return;
 }
 
-void Interpreter::run(std::istream &inputStream) noexcept
+void Interpreter::runPromt(std::istream &inputStream) noexcept
 {
     std::string line;
     std::cout << "> ";
@@ -35,8 +37,14 @@ void Interpreter::run(std::istream &inputStream) noexcept
     }
 }
 
-void Interpreter::start() noexcept
+void Interpreter::runFile(const std::ifstream &inputFile) noexcept
 {
+    ;
+}
+
+void Interpreter::run() noexcept
+{
+    static Parse::FileReader fileReader;
     // show help message
     if (vars.count("help"))
     {
@@ -48,14 +56,13 @@ void Interpreter::start() noexcept
         std::string filepath(vars["file"].as<std::string>());
         // Debug purposes
         std::cout << filepath << '\n';
+        fileReader.readFile(filepath);
         // TODO: execute interpreter with selected file
     }
     // run promt
     else
     {
-        // tools::Interpreter promt;
-        // promt.run();
-        // TODO: execute interpreter promt
+        runPromt(std::cin);
     }
 }
 
