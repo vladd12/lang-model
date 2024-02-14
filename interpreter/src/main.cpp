@@ -3,6 +3,6 @@
 int main(int argc, char *argv[])
 {
     tools::Interpreter interpreter(tools::CommandLineArguments { argc, argv });
-    interpreter.start();
+    interpreter.run();
     return 0;
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/program_options.hpp>
+#include <fstream>
 #include <iostream>
 #include <lang-model/export.hpp>
 #include <string>
@@ -23,14 +24,15 @@ private:
     opt::variables_map vars;
 
     void runLine(const std::string_view &line) noexcept;
+    void runPromt(std::istream &inputStream = std::cin) noexcept;
+    void runFile(const std::ifstream &inputFile) noexcept;
 
 public:
     Interpreter() = delete;
-    Interpreter(const CommandLineArguments &args);
+    explicit Interpreter(const CommandLineArguments &args);
     ~Interpreter() = default;
 
-    void run(std::istream &inputStream = std::cin) noexcept;
-    void start() noexcept;
+    void run() noexcept;
 };
 
 } // namespace tools

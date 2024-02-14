@@ -1,0 +1,81 @@
+name: GCC and Clang on Linux
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations.
+    # Consider changing this to true when your workflow is stable.
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os: [ubuntu-22.04]
+        build_type: [Release]
+        c_compiler: [gcc, clang]
+        python_version: ["3.10"]
+        include:
+          - os: ubuntu-22.04
+            c_compiler: gcc
+            cpp_compiler: g++
+            python_version: "3.10"
+          - os: ubuntu-22.04
+            c_compiler: clang
+            cpp_compiler: clang++
+            python_version: "3.10"
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set reusable strings
+      # Turn repeated input strings (such as the build output directory) into step outputs.
+      # These step outputs can be used throughout the workflow file.
+      id: strings
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
+    - name: Setup Python ${{ matrix.python_version }}
+      # Setup Python.
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python_version }}
+        cache: 'pip' # caching pip dependencies
+
+    - name: Install Conan v${{ matrix.conan_version }} and Ninja
+      # Install conan and Ninja.
+      run: pip install -r ${{ github.workspace }}/requirements.txt
+
+    - name: Cache conan dependencies
+      # Caching conan dependencies.
+      uses: actions/cache@v3
+      with:
+        path: ~/.conan
+        key: ${{ runner.OS }}-conan-cache-${{ matrix.c_compiler }}-${{ hashFiles('**/metadata.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-conan-cache-${{ matrix.c_compiler }}-
+
+    - name: Configure CMake
+      # Configure CMake in a 'build' subdirectory.
+      run: >
+        cmake -B ${{ steps.strings.outputs.build-output-dir }}
+        -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
+        -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
+        -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        -S ${{ github.workspace }}
+        -GNinja
+
+    - name: Build
+      # Build your program with the given configuration.
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
+
+    - name: Test
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      # Execute tests defined by the CMake configuration.
+      run: ctest --build-config ${{ matrix.build_type }}
