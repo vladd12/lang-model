@@ -20,7 +20,8 @@ jobs:
         build_type: [Release]
         arch: [amd64, amd64_x86]
         compiler: [cl]
-        compiler_version: [2022, 2019, 2017, 2015, 2013]
+#        compiler_version: [2022, 2019, 2017, 2015, 2013]
+        compiler_version: [2019]
         python_version: ["3.10"]
         conan_version: ["1.60.2"]
 

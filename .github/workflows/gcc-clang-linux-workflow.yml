@@ -20,18 +20,15 @@ jobs:
         build_type: [Release]
         c_compiler: [gcc, clang]
         python_version: ["3.10"]
-        conan_version: ["1.60.2"]
         include:
           - os: ubuntu-22.04
             c_compiler: gcc
             cpp_compiler: g++
             python_version: "3.10"
-            conan_version: "1.60.2"
           - os: ubuntu-22.04
             c_compiler: clang
             cpp_compiler: clang++
             python_version: "3.10"
-            conan_version: "1.60.2"
 
     steps:
     - uses: actions/checkout@v3
@@ -49,22 +46,20 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python_version }}
-#        cache: 'pip' # caching pip dependencies
+        cache: 'pip' # caching pip dependencies
 
-    - name: Install Conan version ${{ matrix.conan_version }}
+    - name: Install Conan v${{ matrix.conan_version }} and Ninja
       # Install conan and Ninja.
-      run: |
-        pip install conan=="${{ matrix.conan_version }}"
-        pip install ninja
+      run: pip install -r ${{ github.workspace }}/requirements.txt
 
     - name: Cache conan dependencies
       # Caching conan dependencies.
       uses: actions/cache@v3
       with:
         path: ~/.conan
-        key: ${{ runner.OS }}-conan-cache-${{ hashFiles('**/.conan.db') }}
+        key: ${{ runner.OS }}-conan-cache-${{ matrix.c_compiler }}-${{ hashFiles('**/metadata.json') }}
         restore-keys: |
-          ${{ runner.OS }}-conan-cache-
+          ${{ runner.OS }}-conan-cache-${{ matrix.c_compiler }}-
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory.
