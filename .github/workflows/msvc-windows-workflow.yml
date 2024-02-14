@@ -51,9 +51,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.conan
-        key: ${{ runner.OS }}-conan-cache-msvc${{ matrix.compiler }}-${{ matrix.arch }}-${{ hashFiles('**/.conan.db') }}
+        key: ${{ runner.OS }}-msvc${{ matrix.compiler }}-${{ matrix.arch }}-conan-cache-${{ hashFiles('**/metadata.json') }}
         restore-keys: |
-          ${{ runner.OS }}-conan-cache-msvc${{ matrix.compiler }}-${{ matrix.arch }}-
+          ${{ runner.OS }}-msvc${{ matrix.compiler }}-${{ matrix.arch }}-conan-cache-
 
     - name: Setup environment for compiling C/C++ code
       # Setup environment for compiling C/C++ code.
