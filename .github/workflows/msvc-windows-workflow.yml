@@ -16,22 +16,13 @@ jobs:
       fail-fast: false
 
       matrix:
-        os: [ubuntu-22.04]
+        os: [windows-2019, windows-2022]
         build_type: [Release]
-        c_compiler: [gcc, clang]
+        arch: [amd64, amd64_x86, amd64_arm64]
+        compiler: [cl]
+        compiler_version: [2022, 2019, 2017, 2015, 2013]
         python_version: ["3.10"]
         conan_version: ["1.60.2"]
-        include:
-          - os: ubuntu-22.04
-            c_compiler: gcc
-            cpp_compiler: g++
-            python_version: "3.10"
-            conan_version: "1.60.2"
-          - os: ubuntu-22.04
-            c_compiler: clang
-            cpp_compiler: clang++
-            python_version: "3.10"
-            conan_version: "1.60.2"
 
     steps:
     - uses: actions/checkout@v3
@@ -66,12 +57,19 @@ jobs:
         restore-keys: |
           ${{ runner.OS }}-conan-cache-
 
+    - name: Setup environment for compiling C/C++ code
+      # Setup environment for compiling C/C++ code.
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{ matrix.arch }}
+        vsversion : ${{ matrix.compiler_version }}
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory.
       run: >
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
-        -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
-        -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
+        -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+        -DCMAKE_C_COMPILER=${{ matrix.compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -S ${{ github.workspace }}
         -GNinja
