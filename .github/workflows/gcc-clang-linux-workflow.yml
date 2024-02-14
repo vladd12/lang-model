@@ -50,12 +50,15 @@ jobs:
       with:
         python-version: ${{ matrix.python_version }}
         cache: 'pip' # caching pip dependencies
-
-    - name: Install Conan version ${{ matrix.conan_version }}
-      # Install conan and Ninja
       run: |
-        pip install conan=="${{ matrix.conan_version }}"
-        pip install ninja
+          pip install conan=="${{ matrix.conan_version }}"
+          pip install ninja
+
+#    - name: Install Conan version ${{ matrix.conan_version }}
+#      # Install conan and Ninja
+#      run: |
+#        pip install conan=="${{ matrix.conan_version }}"
+#        pip install ninja
 
     - name: Cache conan dependencies
       # Caching conan dependencies
