@@ -1,4 +1,4 @@
-name: MSVC on Linux
+name: MSVC on Windows
 
 on:
   push:
