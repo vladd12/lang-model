@@ -54,7 +54,7 @@ jobs:
 
     - name: Cache conan dependencies
       # Caching conan dependencies.
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.conan
         key: ${{ runner.OS }}-${{ matrix.c_compiler }}-conan-cache-${{ hashFiles('~/.conan/**') }}
