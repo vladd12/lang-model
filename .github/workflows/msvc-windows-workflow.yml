@@ -50,10 +50,13 @@ jobs:
       # Caching conan dependencies.
       uses: actions/cache@v3
       with:
-        path: ~/.conan
-        key: ${{ runner.OS }}-msvc${{ matrix.compiler }}-${{ matrix.arch }}-conan-cache-${{ hashFiles('**/metadata.json') }}
+        path: |
+          ~/.conan
+          C:/.conan
+        key: ${{ runner.OS }}-msvc-${{ matrix.compiler_version }}-${{ matrix.arch }}-conan-cache-${{ hashFiles('~/.conan/**') }}
         restore-keys: |
-          ${{ runner.OS }}-msvc${{ matrix.compiler }}-${{ matrix.arch }}-conan-cache-
+          ${{ runner.OS }}-msvc-${{ matrix.compiler_version }}-${{ matrix.arch }}-conan-cache-${{ hashFiles('~/.conan/**') }}
+          ${{ runner.OS }}-msvc-${{ matrix.compiler_version }}-${{ matrix.arch }}-conan-cache-
 
     - name: Setup environment for compiling C/C++ code
       # Setup environment for compiling C/C++ code.

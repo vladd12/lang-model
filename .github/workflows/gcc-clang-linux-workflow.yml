@@ -57,8 +57,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.conan
-        key: ${{ runner.OS }}-${{ matrix.c_compiler }}-conan-cache-${{ hashFiles('**/metadata.json') }}
+        key: ${{ runner.OS }}-${{ matrix.c_compiler }}-conan-cache-${{ hashFiles('~/.conan/**') }}
         restore-keys: |
+          ${{ runner.OS }}-${{ matrix.c_compiler }}-conan-cache-${{ hashFiles('~/.conan/**') }}
           ${{ runner.OS }}-${{ matrix.c_compiler }}-conan-cache-
 
     - name: Configure CMake
