@@ -1,5 +1,6 @@
 #include "lang-model/tools/interpreter.hpp"
 
+#include <iostream>
 #include <lang-model/parser/file_reader.hpp>
 
 namespace tools
@@ -21,11 +22,11 @@ void Interpreter::runLine(const std::string_view &line)
     return;
 }
 
-void Interpreter::runPromt(std::istream &inputStream)
+void Interpreter::runPromt()
 {
     std::string line;
     std::cout << "> ";
-    while (std::getline(inputStream, line))
+    while (std::getline(std::cin, line))
     {
         if (!line.empty())
         {
@@ -66,7 +67,7 @@ void Interpreter::run()
     else if (vars.count("help")) // show help message
         std::cout << desc << "\n";
     else // run promt
-        runPromt(std::cin);
+        runPromt();
 }
 
 } // namespace tools
