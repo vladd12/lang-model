@@ -14,6 +14,7 @@ option(LANG_MODEL_STATIC_BUILD "Build lang-model as static library" OFF)
 option(LANG_MODEL_BUILD_INTERPRETER "Build interpreter with using lang-model" ON)
 option(LANG_MODEL_BUILD_TESTS "Build tests for avm-editor library" ON)
 
+include(get_magic_enum) # Getting magic_enum library
 include(get_conan) # Getting cmake-conan
 include(get_boost) # Getting boost library with conan
 find_package(Boost COMPONENTS boost program_options REQUIRED) # Finding boost
@@ -30,6 +31,7 @@ set(LANG_MODEL_PUBLIC_HEADERS
     include/${PROJECT_NAME}/const_expr.hpp
     # Work with files and this parsing
     include/${PROJECT_NAME}/parser/file_reader.hpp
+    include/${PROJECT_NAME}/parser/token.hpp
     include/${PROJECT_NAME}/parser/tokenizer.hpp
     # Some interpreter and compilator tools
     include/${PROJECT_NAME}/tools/interpreter.hpp
@@ -42,6 +44,7 @@ set(LANG_MODEL_SOURCES
     src/expr_visitor.cpp
     src/const_expr.cpp
     src/parser/file_reader.cpp
+    src/parser/token.cpp
     src/parser/tokenizer.cpp
     src/tools/interpreter.cpp
     src/tools/error_handler.cpp
@@ -72,6 +75,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_PATH})
 
 # Linking boost::program_options
 target_link_libraries(${PROJECT_NAME} PUBLIC Boost::program_options)
+# Using magic_enum library (header only)
+target_link_libraries(${PROJECT_NAME} PRIVATE magic_enum)
 
 # If enabled building interpreter
 if(LANG_MODEL_BUILD_INTERPRETER)

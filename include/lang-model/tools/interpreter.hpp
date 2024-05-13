@@ -1,8 +1,6 @@
 #pragma once
 
 #include <boost/program_options.hpp>
-#include <fstream>
-#include <iostream>
 #include <lang-model/export.hpp>
 #include <string>
 
@@ -24,7 +22,7 @@ private:
     opt::variables_map vars;
 
     void runLine(const std::string_view &line);
-    void runPromt(std::istream &inputStream = std::cin);
+    void runPromt();
     void runFile(const std::string &filepath);
 
 public:
