@@ -33,6 +33,7 @@ set(LANG_MODEL_PUBLIC_HEADERS
     include/${PROJECT_NAME}/parser/tokenizer.hpp
     # Some interpreter and compilator tools
     include/${PROJECT_NAME}/tools/interpreter.hpp
+    include/${PROJECT_NAME}/tools/error_handler.hpp
 )
 
 # Collecting project's sources
@@ -43,6 +44,7 @@ set(LANG_MODEL_SOURCES
     src/parser/file_reader.cpp
     src/parser/tokenizer.cpp
     src/tools/interpreter.cpp
+    src/tools/error_handler.cpp
 )
 
 # Compilation static library
