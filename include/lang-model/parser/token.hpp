@@ -9,7 +9,7 @@ namespace Parse
 enum class TokenType : std::uint16_t
 {
     // Single-character tokens.
-    left_paren = 0,
+    LEFT_PAREN = 0,
     RIGHT_PAREN,
     LEFT_BRACE,
     RIGHT_BRACE,
