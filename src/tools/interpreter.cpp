@@ -14,56 +14,59 @@ Interpreter::Interpreter(const CommandLineArguments &args) : desc { "Interpreter
     opt::notify(vars);
 }
 
-void Interpreter::runLine(const std::string_view &line) noexcept
+void Interpreter::runLine(const std::string_view &line)
 {
     std::cout << "Debug output: " << line << '\n';
     // TODO: really run line
     return;
 }
 
-void Interpreter::runPromt(std::istream &inputStream) noexcept
+void Interpreter::runPromt(std::istream &inputStream)
 {
     std::string line;
     std::cout << "> ";
     while (std::getline(inputStream, line))
     {
-        if (!line.empty() && line != "exit")
+        if (!line.empty())
         {
-            runLine(line);
-            std::cout << "> ";
+            if (line == "exit")
+                break;
+            else
+            {
+                runLine(line);
+                std::cout << "> ";
+            }
         }
-        else
-            break;
     }
 }
 
-void Interpreter::runFile(const std::ifstream &inputFile) noexcept
+void Interpreter::runFile(const std::string &filepath)
 {
-    ;
-}
-
-void Interpreter::run() noexcept
-{
-    static Parse::FileReader fileReader;
-    // show help message
-    if (vars.count("help"))
+    // Debug purposes
+    std::cout << filepath << '\n';
+    try
     {
-        std::cout << desc << "\n";
-    }
-    // run file in interpreter
-    else if (vars.count("file"))
-    {
-        std::string filepath(vars["file"].as<std::string>());
-        // Debug purposes
-        std::cout << filepath << '\n';
+        Parse::FileReader fileReader;
         fileReader.readFile(filepath);
-        // TODO: execute interpreter with selected file
-    }
-    // run promt
-    else
+        runLine(fileReader.getBuffer());
+    } catch (const std::exception &ex)
     {
-        runPromt(std::cin);
+        std::cout << ex.what();
     }
+}
+
+void Interpreter::run()
+{
+    if (vars.count("file")) // run file in interpreter
+    {
+        Parse::FileReader fileReader;
+        std::string filepath(vars["file"].as<std::string>());
+        runFile(filepath);
+    }
+    else if (vars.count("help")) // show help message
+        std::cout << desc << "\n";
+    else // run promt
+        runPromt(std::cin);
 }
 
 } // namespace tools
