@@ -6,7 +6,7 @@
 namespace Parse
 {
 
-class Scanner final
+class libapi Scanner final
 {
 private:
     std::string_view m_source;
@@ -19,6 +19,7 @@ private:
     bool match(const char expected);
     char peek();
     char peekNext();
+
     bool isDigit(const char c);
     bool isAlpha(const char c);
     bool isAlphaNumeric(const char c);

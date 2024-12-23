@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <lang-model/export.hpp>
 #include <string>
 
 namespace Parse
@@ -53,7 +54,7 @@ enum class TokenType : std::uint16_t
     EOF_ = UINT16_MAX
 };
 
-class Token final
+class libapi Token final
 {
 private:
     TokenType m_type;
