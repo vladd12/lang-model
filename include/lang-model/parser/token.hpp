@@ -63,7 +63,9 @@ private:
 
 public:
     explicit Token(const TokenType type, const std::string_view &lexeme, const std::uint64_t line);
-    std::string toString();
+
+    [[nodiscard]] std::string toString() const;
+    [[nodiscard]] operator TokenType() const noexcept;
 };
 
 } // namespace Parse

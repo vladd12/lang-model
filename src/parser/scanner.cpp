@@ -5,6 +5,25 @@
 namespace Parse
 {
 
+const std::unordered_map<std::string_view, TokenType> Scanner::s_keywords {
+    { "if", TokenType::IF },         //
+    { "else", TokenType::ELSE },     //
+    { "true", TokenType::TRUE },     //
+    { "false", TokenType::FALSE },   //
+    { "and", TokenType::AND },       //
+    { "or", TokenType::OR },         //
+    { "for", TokenType::FOR },       //
+    { "while", TokenType::WHILE },   //
+    { "var", TokenType::VAR },       //
+    { "nil", TokenType::NIL },       //
+    { "print", TokenType::PRINT },   //
+    { "return", TokenType::RETURN }, //
+    { "fun", TokenType::FUN },       //
+    { "class", TokenType::CLASS },   //
+    { "this", TokenType::THIS },     //
+    { "super", TokenType::SUPER },   //
+};
+
 Scanner::Scanner() : m_start(0), m_current(0), m_line(1)
 {
 }
@@ -55,6 +74,11 @@ char Scanner::peekNext()
         return m_source[m_current + 1];
 }
 
+std::string_view Scanner::get_current_lexeme()
+{
+    return m_source.substr(m_start, m_current - m_start);
+}
+
 bool Scanner::isDigit(const char c)
 {
     return ((c >= '0') && (c <= '9'));
@@ -82,7 +106,6 @@ void Scanner::scan_string()
     {
         // The closing ".
         advance();
-        // const auto value = m_source.substr(m_start + 1, m_current - 1);
         addToken(TokenType::STRING);
     }
     else
@@ -100,7 +123,6 @@ void Scanner::scan_number()
         while (isDigit(peek()))
             advance();
     }
-    // const auto value = m_source.substr(m_start, m_current);
     addToken(TokenType::NUMBER);
 }
 
@@ -108,13 +130,16 @@ void Scanner::scan_identifier()
 {
     while (isAlphaNumeric(peek()))
         advance();
-    addToken(TokenType::IDENTIFIER);
+    auto search = s_keywords.find(get_current_lexeme());
+    if (search != s_keywords.cend())
+        addToken(search->second);
+    else
+        addToken(TokenType::IDENTIFIER);
 }
 
 void Scanner::addToken(const TokenType type)
 {
-    const auto text = m_source.substr(m_start, m_current);
-    m_tokens.push_back(Token { type, text, m_line });
+    m_tokens.push_back(Token { type, get_current_lexeme(), m_line });
 }
 
 void Scanner::scanToken()
@@ -188,6 +213,8 @@ void Scanner::scanToken()
     default:
         if (isDigit(c))
             scan_number();
+        else if (isAlpha(c))
+            scan_identifier();
         else
             tools::ErrorHandler::error(m_line, "Unexpected character!");
         break;

@@ -12,7 +12,7 @@ void ErrorHandler::error(unsigned int line, const std::string_view &message)
 
 void ErrorHandler::report(unsigned int line, const std::string_view &where, const std::string_view &message)
 {
-    std::cerr << "[line " << line << "] Error " << where << ": " << message;
+    std::cerr << "[line " << line << "] Error " << where << ": " << message << '\n';
 }
 
 } // namespace tools
