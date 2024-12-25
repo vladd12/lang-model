@@ -1,6 +1,6 @@
 #include "lang-model/parser/scanner.hpp"
 
-#include <lang-model/tools/error_handler.hpp>
+#include <lang-model/utils/error_handler.hpp>
 
 namespace Parse
 {
@@ -109,7 +109,7 @@ void Scanner::scan_string()
     addToken(TokenType::STRING);
   }
   else
-    tools::ErrorHandler::error(m_line, "Unterminated string!");
+    Utils::ErrorHandler::error(m_line, "Unterminated string!");
 }
 
 void Scanner::scan_number()
@@ -226,7 +226,7 @@ void Scanner::scanToken()
     else if (isAlpha(c))
       scan_identifier();
     else
-      tools::ErrorHandler::error(m_line, "Unexpected character!");
+      Utils::ErrorHandler::error(m_line, "Unexpected character!");
     break;
   }
 }

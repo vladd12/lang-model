@@ -1,18 +1,18 @@
-#include "lang-model/tools/error_handler.hpp"
+#include "lang-model/utils/error_handler.hpp"
 
 #include <iostream>
 
-namespace tools
+namespace Utils
 {
 
 void ErrorHandler::error(unsigned int line, const std::string_view &message)
 {
-    report(line, "", message);
+  report(line, "", message);
 }
 
 void ErrorHandler::report(unsigned int line, const std::string_view &where, const std::string_view &message)
 {
-    std::cerr << "[line " << line << "] Error " << where << ": " << message << '\n';
+  std::cerr << "[line " << line << "] Error " << where << ": " << message << '\n';
 }
 
 } // namespace tools

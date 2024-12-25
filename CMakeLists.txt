@@ -26,41 +26,43 @@ include(get_fmt)        # Getting fmt library
 find_package(Boost COMPONENTS boost program_options REQUIRED) # Finding boost
 
 # Collecting project's public headers
+set(LANG_MODEL_HDR_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}")
 set(LANG_MODEL_PUBLIC_HEADERS
-    # Work with files and this parsing
-    include/${PROJECT_NAME}/parser/file_reader.hpp
-    include/${PROJECT_NAME}/parser/scanner.hpp
-    include/${PROJECT_NAME}/parser/token.hpp
-    # Some interpreter and compilator tools
-    include/${PROJECT_NAME}/tools/error_handler.hpp
-    include/${PROJECT_NAME}/tools/interpreter.hpp
+  # Core features
+  "${LANG_MODEL_HDR_DIR}/export.hpp"
+  # Work with files and this parsing
+  "${LANG_MODEL_HDR_DIR}/parser/file_reader.hpp"
+  "${LANG_MODEL_HDR_DIR}/parser/scanner.hpp"
+  "${LANG_MODEL_HDR_DIR}/parser/token.hpp"
+  # Some interpreter and compilator tools
+  "${LANG_MODEL_HDR_DIR}/utils/error_handler.hpp"
+  "${LANG_MODEL_HDR_DIR}/utils/interpreter.hpp"
 )
 
 # Collecting project's sources
+set(LANG_MODEL_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LANG_MODEL_SOURCES
-    src/parser/file_reader.cpp
-    src/parser/scanner.cpp
-    src/parser/token.cpp
-    src/tools/error_handler.cpp
-    src/tools/interpreter.cpp
+  "${LANG_MODEL_SRC_DIR}/parser/file_reader.cpp"
+  "${LANG_MODEL_SRC_DIR}/parser/scanner.cpp"
+  "${LANG_MODEL_SRC_DIR}/parser/token.cpp"
+  "${LANG_MODEL_SRC_DIR}/utils/error_handler.cpp"
+  "${LANG_MODEL_SRC_DIR}/utils/interpreter.cpp"
 )
 
 # Compilation static library
 if (LANG_MODEL_STATIC_BUILD)
-    message(STATUS "${PROJECT_NAME} is static library")
-    add_library(${PROJECT_NAME} STATIC)
-    target_compile_definitions(${PROJECT_NAME} PUBLIC -DSTATIC_BUILD)
+  message(STATUS "${PROJECT_NAME} is static library")
+  add_library(${PROJECT_NAME} STATIC)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC -DSTATIC_BUILD)
 # Compilation dynamic library
 else()
-    message(STATUS "${PROJECT_NAME} is dynamic library")
-    add_library(${PROJECT_NAME} SHARED)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE -DLIB_EXPORT)
-    target_compile_definitions(${PROJECT_NAME} INTERFACE -DLIB_IMPORT)
+  message(STATUS "${PROJECT_NAME} is dynamic library")
+  add_library(${PROJECT_NAME} SHARED)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE -DLIB_EXPORT)
+  target_compile_definitions(${PROJECT_NAME} INTERFACE -DLIB_IMPORT)
 endif()
 # Setting target source files
-target_sources(${PROJECT_NAME}
-    PRIVATE ${LANG_MODEL_PUBLIC_HEADERS} ${LANG_MODEL_SOURCES}
-)
+target_sources(${PROJECT_NAME} PRIVATE ${LANG_MODEL_PUBLIC_HEADERS} ${LANG_MODEL_SOURCES})
 
 # Include directory with project's public headers
 set(INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -78,8 +80,8 @@ add_subdirectory(tools)
 
 # If enabled building tests for library
 if(LANG_MODEL_BUILD_TESTS)
-    message(STATUS "Tests building is enabled")
-    include(CTest)
-    enable_testing(true)
-    add_subdirectory(tests)
+  message(STATUS "Tests building is enabled")
+  include(CTest)
+  enable_testing(true)
+  add_subdirectory(tests)
 endif()
