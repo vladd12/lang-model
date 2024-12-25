@@ -38,7 +38,6 @@ set(LANG_MODEL_PUBLIC_HEADERS
     include/${PROJECT_NAME}/parser/file_reader.hpp
     include/${PROJECT_NAME}/parser/scanner.hpp
     include/${PROJECT_NAME}/parser/token.hpp
-    include/${PROJECT_NAME}/parser/tokenizer.hpp
     # Some interpreter and compilator tools
     include/${PROJECT_NAME}/tools/error_handler.hpp
     include/${PROJECT_NAME}/tools/interpreter.hpp
@@ -52,7 +51,6 @@ set(LANG_MODEL_SOURCES
     src/parser/file_reader.cpp
     src/parser/scanner.cpp
     src/parser/token.cpp
-    src/parser/tokenizer.cpp
     src/tools/error_handler.cpp
     src/tools/interpreter.cpp
 )
