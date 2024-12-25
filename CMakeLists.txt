@@ -15,9 +15,13 @@ option(LANG_MODEL_BUILD_INTERPRETER   "Build interpreter with using lang-model" 
 option(LANG_MODEL_BUILD_AST_GENERATOR "Build AST generator for lang-model"       ON)
 option(LANG_MODEL_BUILD_TESTS         "Build tests for avm-editor library"       ON)
 
+# Getting dependencies
+include(FetchContent)
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
 include(get_magic_enum) # Getting magic_enum library
-include(get_conan) # Getting cmake-conan
-include(get_boost) # Getting boost library with conan
+include(get_conan)      # Getting cmake-conan
+include(get_boost)      # Getting boost library with conan
+include(get_fmt)        # Getting fmt library
 find_package(Boost COMPONENTS boost program_options REQUIRED) # Finding boost
 
 # Collecting project's public headers

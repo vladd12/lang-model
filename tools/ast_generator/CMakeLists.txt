@@ -6,3 +6,4 @@ set(AST_GEN_SOURCES
 
 # Create executable target
 add_executable(ast_generator ${AST_GEN_SOURCES})
+target_link_libraries(ast_generator PRIVATE fmt::fmt)
