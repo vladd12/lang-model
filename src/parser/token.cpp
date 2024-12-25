@@ -10,9 +10,14 @@ Token::Token(const TokenType type, const std::string_view &lexeme, const std::ui
 {
 }
 
-std::string Token::toString()
+std::string Token::toString() const
 {
-    return std::string(magic_enum::enum_name(m_type)) + " " + std::string(m_lexeme);
+  return std::string(magic_enum::enum_name(m_type)) + " " + std::string(m_lexeme);
+}
+
+Token::operator TokenType() const noexcept
+{
+  return m_type;
 }
 
 } // namespace Parse
