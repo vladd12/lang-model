@@ -22,18 +22,11 @@ include(get_magic_enum) # Getting magic_enum library
 include(get_conan)      # Getting cmake-conan
 include(get_boost)      # Getting boost library with conan
 include(get_fmt)        # Getting fmt library
+
 find_package(Boost COMPONENTS boost program_options REQUIRED) # Finding boost
 
 # Collecting project's public headers
 set(LANG_MODEL_PUBLIC_HEADERS
-    #include/${PROJECT_NAME}.hpp
-    # Core features
-    include/${PROJECT_NAME}/export.hpp
-    include/${PROJECT_NAME}/expr.hpp
-    include/${PROJECT_NAME}/expr_type.hpp
-    include/${PROJECT_NAME}/expr_visitor.hpp
-    # Expressions implementation
-    include/${PROJECT_NAME}/const_expr.hpp
     # Work with files and this parsing
     include/${PROJECT_NAME}/parser/file_reader.hpp
     include/${PROJECT_NAME}/parser/scanner.hpp
@@ -45,9 +38,6 @@ set(LANG_MODEL_PUBLIC_HEADERS
 
 # Collecting project's sources
 set(LANG_MODEL_SOURCES
-    src/expr.cpp
-    src/expr_visitor.cpp
-    src/const_expr.cpp
     src/parser/file_reader.cpp
     src/parser/scanner.cpp
     src/parser/token.cpp
