@@ -15,7 +15,10 @@ BraceWrapping:
   AfterNamespace : true
   BeforeElse: true
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
-ColumnLimit: 120
+ColumnLimit: 130
+IndentWidth: 2
+AccessModifierOffset: -2
+ContinuationIndentWidth: 2
 PointerBindsToType: false
 SpaceBeforeParens: ControlStatements
 IncludeBlocks: Regroup
