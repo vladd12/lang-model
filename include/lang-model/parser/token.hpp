@@ -1,13 +1,13 @@
 #pragma once
 
-#include <cstdint>
 #include <lang-model/export.hpp>
+#include <limits>
 #include <string>
 
 namespace Parse
 {
 
-enum class TokenType : std::uint16_t
+enum class TokenType : std::uint64_t
 {
   // Single-character tokens.
   LEFT_PAREN = 0,
@@ -33,7 +33,8 @@ enum class TokenType : std::uint16_t
   // Literals.
   IDENTIFIER,
   STRING,
-  NUMBER,
+  INTEGER,
+  FLOAT,
   // Keywords.
   AND,
   CLASS,
@@ -51,7 +52,7 @@ enum class TokenType : std::uint16_t
   TRUE,
   VAR,
   WHILE,
-  EOF_ = UINT16_MAX
+  EOF_ = std::numeric_limits<std::uint64_t>::max()
 };
 
 class libapi Token final

@@ -44,8 +44,7 @@ bool Scanner::isAtEnd() noexcept
 
 char Scanner::advance()
 {
-  ++m_current;
-  return m_source[m_current - 1];
+  return m_source[m_current++];
 }
 
 bool Scanner::match(const char expected)
@@ -54,7 +53,7 @@ bool Scanner::match(const char expected)
     return false;
   if (m_source[m_current] != expected)
     return false;
-  m_current++;
+  ++m_current;
   return true;
 }
 
@@ -116,14 +115,16 @@ void Scanner::scan_number()
 {
   while (isDigit(peek()))
     advance();
+  TokenType type = TokenType::INTEGER;
   // Look for a fractional part.
   if (peek() == '.' && isDigit(peekNext()))
   {
+    type = TokenType::FLOAT;
     advance();
     while (isDigit(peek()))
       advance();
   }
-  addToken(TokenType::NUMBER);
+  addToken(type);
 }
 
 void Scanner::scan_identifier()

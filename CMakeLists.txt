@@ -37,16 +37,22 @@ set(LANG_MODEL_PUBLIC_HEADERS
   # Some interpreter and compilator tools
   "${LANG_MODEL_HDR_DIR}/utils/error_handler.hpp"
   "${LANG_MODEL_HDR_DIR}/utils/interpreter.hpp"
+  # AST tools
+  "${LANG_MODEL_HDR_DIR}/ast/expression.hpp"
 )
 
 # Collecting project's sources
 set(LANG_MODEL_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LANG_MODEL_SOURCES
+  # Work with files and this parsing
   "${LANG_MODEL_SRC_DIR}/parser/file_reader.cpp"
   "${LANG_MODEL_SRC_DIR}/parser/scanner.cpp"
   "${LANG_MODEL_SRC_DIR}/parser/token.cpp"
+  # Some interpreter and compilator tools
   "${LANG_MODEL_SRC_DIR}/utils/error_handler.cpp"
   "${LANG_MODEL_SRC_DIR}/utils/interpreter.cpp"
+  # AST tools
+  "${LANG_MODEL_SRC_DIR}/ast/expression.cpp"
 )
 
 # Compilation static library
