@@ -10,9 +10,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Library's options
-option(LANG_MODEL_STATIC_BUILD "Build lang-model as static library" OFF)
-option(LANG_MODEL_BUILD_INTERPRETER "Build interpreter with using lang-model" ON)
-option(LANG_MODEL_BUILD_TESTS "Build tests for avm-editor library" ON)
+option(LANG_MODEL_STATIC_BUILD        "Build lang-model as static library"      OFF)
+option(LANG_MODEL_BUILD_INTERPRETER   "Build interpreter with using lang-model"  ON)
+option(LANG_MODEL_BUILD_AST_GENERATOR "Build AST generator for lang-model"       ON)
+option(LANG_MODEL_BUILD_TESTS         "Build tests for avm-editor library"       ON)
 
 include(get_magic_enum) # Getting magic_enum library
 include(get_conan) # Getting cmake-conan
@@ -80,11 +81,8 @@ target_link_libraries(${PROJECT_NAME} PUBLIC Boost::program_options)
 # Using magic_enum library (header only)
 target_link_libraries(${PROJECT_NAME} PRIVATE magic_enum)
 
-# If enabled building interpreter
-if(LANG_MODEL_BUILD_INTERPRETER)
-    message(STATUS "Example building is enabled")
-    add_subdirectory(interpreter)
-endif()
+# Building tools
+add_subdirectory(tools)
 
 # If enabled building tests for library
 if(LANG_MODEL_BUILD_TESTS)
