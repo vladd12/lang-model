@@ -45,6 +45,7 @@ set(LANG_MODEL_PUBLIC_HEADERS
   "${LANG_MODEL_HDR_DIR}/ast/expr/unary.hpp"
   # AST visitors
   "${LANG_MODEL_HDR_DIR}/ast/visitor.hpp"
+  "${LANG_MODEL_HDR_DIR}/ast/visit/ast_printer.hpp"
 )
 
 # Collecting project's sources
@@ -62,6 +63,8 @@ set(LANG_MODEL_SOURCES
   "${LANG_MODEL_SRC_DIR}/ast/expr/grouping.cpp"
   "${LANG_MODEL_SRC_DIR}/ast/expr/literal.cpp"
   "${LANG_MODEL_SRC_DIR}/ast/expr/unary.cpp"
+  # AST visitors
+  "${LANG_MODEL_SRC_DIR}/ast/visit/ast_printer.cpp"
 )
 
 # Compilation static library

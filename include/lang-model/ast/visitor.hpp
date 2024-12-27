@@ -1,10 +1,12 @@
 #pragma once
 
 #include <boost/noncopyable.hpp>
+#include <lang-model/export.hpp>
 
 namespace AST
 {
 
+class Expression;
 class Binary;
 class Grouping;
 class Literal;

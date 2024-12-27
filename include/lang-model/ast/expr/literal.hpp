@@ -7,7 +7,7 @@
 namespace AST
 {
 
-class Literal final : public Expression
+class libapi Literal final : public Expression
 {
 public:
   using holder_type = std::variant<std::uint64_t, std::int64_t, double, bool, char, std::string>;

@@ -7,7 +7,7 @@
 namespace AST
 {
 
-using Token = Parse::TokenType;
+using ::Parse::Token;
 
 class Visitor;
 

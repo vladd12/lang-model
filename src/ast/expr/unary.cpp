@@ -5,7 +5,7 @@
 namespace AST
 {
 
-Unary::Unary(ExpressionPtr &right, const Token operator_) noexcept
+Unary::Unary(ExpressionPtr &right, const Parse::Token &operator_) noexcept
     : Expression(), m_right(std::move(right)), m_operator(operator_)
 {
 }

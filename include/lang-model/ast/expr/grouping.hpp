@@ -5,7 +5,7 @@
 namespace AST
 {
 
-class Grouping final : public Expression
+class libapi Grouping final : public Expression
 {
 private:
   ExpressionPtr m_expr;

@@ -5,7 +5,7 @@
 namespace AST
 {
 
-class Binary final : public Expression
+class libapi Binary final : public Expression
 {
 private:
   ExpressionPtr m_left;
@@ -14,7 +14,7 @@ private:
 
 public:
   Binary() = delete;
-  Binary(ExpressionPtr &left, ExpressionPtr &right, const Token operator_) noexcept;
+  Binary(ExpressionPtr &left, ExpressionPtr &right, const Token &operator_) noexcept;
   Binary(Binary &&other) noexcept;
 
   void accept(Visitor &visitor) override;

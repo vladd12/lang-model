@@ -5,7 +5,7 @@
 namespace AST
 {
 
-class Unary final : public Expression
+class libapi Unary final : public Expression
 {
 private:
   ExpressionPtr m_right;
@@ -13,7 +13,7 @@ private:
 
 public:
   Unary() = delete;
-  Unary(ExpressionPtr &right, const Token operator_) noexcept;
+  Unary(ExpressionPtr &right, const Token &operator_) noexcept;
   Unary(Unary &&other) noexcept;
 
   void accept(Visitor &visitor) override;

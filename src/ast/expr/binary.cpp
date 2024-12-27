@@ -5,7 +5,7 @@
 namespace AST
 {
 
-Binary::Binary(ExpressionPtr &left, ExpressionPtr &right, const Token operator_) noexcept
+Binary::Binary(ExpressionPtr &left, ExpressionPtr &right, const Token &operator_) noexcept
     : Expression(), m_left(std::move(left)), m_right(std::move(right)), m_operator(operator_)
 {
 }
