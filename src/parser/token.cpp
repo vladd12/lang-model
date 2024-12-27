@@ -20,4 +20,14 @@ Token::operator TokenType() const noexcept
   return m_type;
 }
 
+std::string_view &Token::lexeme() noexcept
+{
+  return m_lexeme;
+}
+
+const std::string_view &Token::lexeme() const noexcept
+{
+  return m_lexeme;
+}
+
 } // namespace Parse

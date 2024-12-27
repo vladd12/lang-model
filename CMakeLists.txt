@@ -37,6 +37,7 @@ set(LANG_MODEL_PUBLIC_HEADERS
   # Some interpreter and compilator tools
   "${LANG_MODEL_HDR_DIR}/utils/error_handler.hpp"
   "${LANG_MODEL_HDR_DIR}/utils/interpreter.hpp"
+  "${LANG_MODEL_HDR_DIR}/utils/utils.hpp"
   # AST expressions
   "${LANG_MODEL_HDR_DIR}/ast/expression.hpp"
   "${LANG_MODEL_HDR_DIR}/ast/expr/binary.hpp"
@@ -91,7 +92,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_PATH})
 # Linking boost::program_options
 target_link_libraries(${PROJECT_NAME} PUBLIC Boost::program_options)
 # Using magic_enum library (header only)
-target_link_libraries(${PROJECT_NAME} PRIVATE magic_enum)
+target_link_libraries(${PROJECT_NAME} PRIVATE magic_enum fmt::fmt)
 
 # Building tools
 add_subdirectory(tools)

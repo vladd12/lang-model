@@ -11,13 +11,13 @@ class libapi AstPrinter final : public Visitor
 private:
   std::string m_str;
 
-public:
-  explicit AstPrinter() noexcept = default;
-
   void visit(Binary &expression) override;
   void visit(Grouping &expression) override;
   void visit(Literal &expression) override;
   void visit(Unary &expression) override;
+
+public:
+  explicit AstPrinter() noexcept = default;
 
   std::string toString(Expression &expr);
 };

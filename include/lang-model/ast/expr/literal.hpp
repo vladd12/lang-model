@@ -21,9 +21,9 @@ public:
   Literal(const std::uint64_t value) noexcept;
   Literal(const std::int64_t value) noexcept;
   Literal(const double value) noexcept;
-  Literal(const bool value) noexcept;
-  Literal(const char value) noexcept;
-  Literal(const std::string &value);
+  explicit Literal(const bool value) noexcept;
+  explicit Literal(const char value) noexcept;
+  explicit Literal(const std::string &value);
 
   holder_type &get() noexcept;
   const holder_type &get() const noexcept;

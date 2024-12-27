@@ -7,11 +7,10 @@ namespace AST
 
 class libapi Unary final : public Expression
 {
-private:
+public:
   ExpressionPtr m_right;
   Token m_operator;
 
-public:
   Unary() = delete;
   Unary(ExpressionPtr &right, const Token &operator_) noexcept;
   Unary(Unary &&other) noexcept;

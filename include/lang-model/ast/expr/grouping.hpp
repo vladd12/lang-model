@@ -7,10 +7,9 @@ namespace AST
 
 class libapi Grouping final : public Expression
 {
-private:
+public:
   ExpressionPtr m_expr;
 
-public:
   Grouping() = delete;
   Grouping(ExpressionPtr &expr) noexcept;
   Grouping(Grouping &&other) noexcept;

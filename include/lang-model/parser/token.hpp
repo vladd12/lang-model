@@ -67,6 +67,9 @@ public:
 
   [[nodiscard]] std::string toString() const;
   [[nodiscard]] operator TokenType() const noexcept;
+
+  [[nodiscard]] std::string_view &lexeme() noexcept;
+  [[nodiscard]] const std::string_view &lexeme() const noexcept;
 };
 
 } // namespace Parse

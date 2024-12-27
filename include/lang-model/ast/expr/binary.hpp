@@ -7,12 +7,11 @@ namespace AST
 
 class libapi Binary final : public Expression
 {
-private:
+public:
   ExpressionPtr m_left;
   ExpressionPtr m_right;
   Token m_operator;
 
-public:
   Binary() = delete;
   Binary(ExpressionPtr &left, ExpressionPtr &right, const Token &operator_) noexcept;
   Binary(Binary &&other) noexcept;
