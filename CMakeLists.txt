@@ -37,8 +37,14 @@ set(LANG_MODEL_PUBLIC_HEADERS
   # Some interpreter and compilator tools
   "${LANG_MODEL_HDR_DIR}/utils/error_handler.hpp"
   "${LANG_MODEL_HDR_DIR}/utils/interpreter.hpp"
-  # AST tools
+  # AST expressions
   "${LANG_MODEL_HDR_DIR}/ast/expression.hpp"
+  "${LANG_MODEL_HDR_DIR}/ast/expr/binary.hpp"
+  "${LANG_MODEL_HDR_DIR}/ast/expr/grouping.hpp"
+  "${LANG_MODEL_HDR_DIR}/ast/expr/literal.hpp"
+  "${LANG_MODEL_HDR_DIR}/ast/expr/unary.hpp"
+  # AST visitors
+  #"${LANG_MODEL_HDR_DIR}/ast/visitor.hpp"
 )
 
 # Collecting project's sources
@@ -51,8 +57,11 @@ set(LANG_MODEL_SOURCES
   # Some interpreter and compilator tools
   "${LANG_MODEL_SRC_DIR}/utils/error_handler.cpp"
   "${LANG_MODEL_SRC_DIR}/utils/interpreter.cpp"
-  # AST tools
-  "${LANG_MODEL_SRC_DIR}/ast/expression.cpp"
+  # AST expressions
+  "${LANG_MODEL_SRC_DIR}/ast/expr/binary.cpp"
+  "${LANG_MODEL_SRC_DIR}/ast/expr/grouping.cpp"
+  "${LANG_MODEL_SRC_DIR}/ast/expr/literal.cpp"
+  "${LANG_MODEL_SRC_DIR}/ast/expr/unary.cpp"
 )
 
 # Compilation static library
