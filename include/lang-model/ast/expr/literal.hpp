@@ -11,6 +11,8 @@ class Literal final : public Expression
 {
 public:
   Literal() noexcept;
+
+  void accept(Visitor &visitor) override;
 };
 
 } // namespace AST

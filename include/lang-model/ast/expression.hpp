@@ -15,6 +15,8 @@ class Expression : public boost::noncopyable
 {
 public:
   explicit Expression() noexcept = default;
+
+  virtual void accept(Visitor &visitor) = 0;
 };
 
 using ExpressionPtr = std::unique_ptr<Expression>;

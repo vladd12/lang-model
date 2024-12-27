@@ -16,6 +16,8 @@ public:
   Binary() = delete;
   Binary(ExpressionPtr &left, ExpressionPtr &right, const Token operator_) noexcept;
   Binary(Binary &&other) noexcept;
+
+  void accept(Visitor &visitor) override;
 };
 
 } // namespace AST

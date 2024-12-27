@@ -15,6 +15,8 @@ public:
   Unary() = delete;
   Unary(ExpressionPtr &right, const Token operator_) noexcept;
   Unary(Unary &&other) noexcept;
+
+  void accept(Visitor &visitor) override;
 };
 
 } // namespace AST

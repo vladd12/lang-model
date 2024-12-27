@@ -14,6 +14,8 @@ public:
   Grouping() = delete;
   Grouping(ExpressionPtr &expr) noexcept;
   Grouping(Grouping &&other) noexcept;
+
+  void accept(Visitor &visitor) override;
 };
 
 } // namespace AST

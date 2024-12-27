@@ -44,7 +44,7 @@ set(LANG_MODEL_PUBLIC_HEADERS
   "${LANG_MODEL_HDR_DIR}/ast/expr/literal.hpp"
   "${LANG_MODEL_HDR_DIR}/ast/expr/unary.hpp"
   # AST visitors
-  #"${LANG_MODEL_HDR_DIR}/ast/visitor.hpp"
+  "${LANG_MODEL_HDR_DIR}/ast/visitor.hpp"
 )
 
 # Collecting project's sources
