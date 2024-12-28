@@ -28,3 +28,36 @@ TEST(AstPrinter, MixedExprTest)
   auto result = printer.toString(*expr);
   ASSERT_EQ(result, "(* (- 123) (group 45.670000))");
 }
+
+TEST(AstPrinter, MixedLiteralsTest)
+{
+  using namespace AST;
+  AstPrinter printer;
+  ExpressionPtr unsigned_value(new Literal(123ull));
+  auto result = printer.toString(*unsigned_value);
+  ASSERT_EQ(result, "123");
+  ExpressionPtr signed_value(new Literal(-456ll));
+  result = printer.toString(*signed_value);
+  ASSERT_EQ(result, "-456");
+  ExpressionPtr float_value(new Literal(1.1f));
+  result = printer.toString(*float_value);
+  ASSERT_EQ(result, "1.100000");
+  ExpressionPtr double_value(new Literal(3.0));
+  result = printer.toString(*double_value);
+  ASSERT_EQ(result, "3.000000");
+  ExpressionPtr char_value(new Literal('a'));
+  result = printer.toString(*char_value);
+  ASSERT_EQ(result, "'a'");
+  ExpressionPtr true_value(new Literal(true));
+  result = printer.toString(*true_value);
+  ASSERT_EQ(result, "true");
+  ExpressionPtr false_value(new Literal(false));
+  result = printer.toString(*false_value);
+  ASSERT_EQ(result, "false");
+  /// TODO: well, here we are calling bool ctor... Fix me?
+  ExpressionPtr str_value(new Literal("this is string"));
+  result = printer.toString(*str_value);
+  /// TODO: not valueless, cause default ctor is called for variant
+  ExpressionPtr nil_value(new Literal);
+  result = printer.toString(*nil_value);
+}

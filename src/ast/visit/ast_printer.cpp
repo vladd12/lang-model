@@ -28,6 +28,13 @@ void AstPrinter::visit(Grouping &expression)
 
 void AstPrinter::visit(Literal &expression)
 {
+  auto &stored_value = expression.get();
+  if (stored_value.valueless_by_exception())
+  {
+    m_str += "nil";
+    return;
+  }
+
   std::visit( //
     ::Utils::overloaded {
       [this](const std::uint64_t value) { m_str += std::to_string(value); },
@@ -42,7 +49,7 @@ void AstPrinter::visit(Literal &expression)
           m_str += "false";
       },
     },
-    expression.get());
+    stored_value);
 }
 
 void AstPrinter::visit(Unary &expression)

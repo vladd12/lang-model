@@ -5,6 +5,10 @@
 namespace AST
 {
 
+Literal::Literal() noexcept : Expression()
+{
+}
+
 Literal::Literal(const std::uint64_t value) noexcept : Expression(), m_value(value)
 {
 }
@@ -17,7 +21,7 @@ Literal::Literal(const double value) noexcept : Expression(), m_value(value)
 {
 }
 
-Literal::Literal(const bool value) noexcept : Expression(), m_value(value)
+Literal::Literal(const std::string &value) : Expression(), m_value(value)
 {
 }
 
@@ -25,7 +29,7 @@ Literal::Literal(const char value) noexcept : Expression(), m_value(value)
 {
 }
 
-Literal::Literal(const std::string &value) : Expression(), m_value(value)
+Literal::Literal(const bool value) noexcept : Expression(), m_value(value)
 {
 }
 

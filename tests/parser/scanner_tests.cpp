@@ -4,40 +4,42 @@
 
 TEST(Scanner, OperatorsTest)
 {
-  std::array<Parse::TokenType, 19> expected_tokens {
-    Parse::TokenType::LEFT_PAREN, Parse::TokenType::LEFT_PAREN,    //
-    Parse::TokenType::RIGHT_PAREN, Parse::TokenType::RIGHT_PAREN,  //
-    Parse::TokenType::LEFT_BRACE, Parse::TokenType::RIGHT_BRACE,   //
-    Parse::TokenType::BANG, Parse::TokenType::STAR,                //
-    Parse::TokenType::PLUS, Parse::TokenType::MINUS,               //
-    Parse::TokenType::SLASH, Parse::TokenType::EQUAL,              //
-    Parse::TokenType::LESS, Parse::TokenType::GREATER,             //
-    Parse::TokenType::LESS_EQUAL, Parse::TokenType::GREATER_EQUAL, //
-    Parse::TokenType::EQUAL_EQUAL, Parse::TokenType::BANG_EQUAL,   //
-    Parse::TokenType::EOF_                                         //
+  using namespace ::Parse;
+  std::array<TokenType, 19> expected_tokens {
+    TokenType::LEFT_PAREN, TokenType::LEFT_PAREN,    //
+    TokenType::RIGHT_PAREN, TokenType::RIGHT_PAREN,  //
+    TokenType::LEFT_BRACE, TokenType::RIGHT_BRACE,   //
+    TokenType::BANG, TokenType::STAR,                //
+    TokenType::PLUS, TokenType::MINUS,               //
+    TokenType::SLASH, TokenType::EQUAL,              //
+    TokenType::LESS, TokenType::GREATER,             //
+    TokenType::LESS_EQUAL, TokenType::GREATER_EQUAL, //
+    TokenType::EQUAL_EQUAL, TokenType::BANG_EQUAL,   //
+    TokenType::EOF_                                  //
   };
 
-  Parse::Scanner scanner;
+  Scanner scanner;
   auto result = scanner.scan(R"(
     // this is a comment
     (( )){} // grouping stuff
     !*+-/=<> <= >= == != // operators
-    )");
+  )");
   ASSERT_EQ(result.size(), expected_tokens.size());
   for (std::size_t index = 0; index < expected_tokens.size(); ++index)
   {
-    ASSERT_EQ(Parse::TokenType(result[index]), expected_tokens[index]);
+    ASSERT_EQ(TokenType(result[index]), expected_tokens[index]);
   }
 }
 
 TEST(Scanner, MultyLineTest)
 {
-  std::array<Parse::TokenType, 4> expected_tokens {
-    Parse::TokenType::MINUS, Parse::TokenType::PLUS, //
-    Parse::TokenType::STAR, Parse::TokenType::EOF_   //
+  using namespace ::Parse;
+  std::array<TokenType, 4> expected_tokens {
+    TokenType::MINUS, TokenType::PLUS, //
+    TokenType::STAR, TokenType::EOF_   //
   };
 
-  Parse::Scanner scanner;
+  Scanner scanner;
   auto result = scanner.scan(R"(
     -
     // -+
@@ -47,20 +49,45 @@ TEST(Scanner, MultyLineTest)
     *-/+
     !*+-/=<>
     */*
-    )");
+  )");
   ASSERT_EQ(result.size(), expected_tokens.size());
   for (std::size_t index = 0; index < expected_tokens.size(); ++index)
   {
-    ASSERT_EQ(Parse::TokenType(result[index]), expected_tokens[index]);
+    ASSERT_EQ(TokenType(result[index]), expected_tokens[index]);
+  }
+}
+
+TEST(Scanner, KeywordsTest)
+{
+  using namespace ::Parse;
+  std::array<TokenType, 17> expected_tokens {
+    TokenType::IF, TokenType::ELSE, TokenType::TRUE,     //
+    TokenType::FALSE, TokenType::AND, TokenType::OR,     //
+    TokenType::FOR, TokenType::WHILE, TokenType::VAR,    //
+    TokenType::NIL, TokenType::PRINT, TokenType::RETURN, //
+    TokenType::FUN, TokenType::CLASS, TokenType::THIS,   //
+    TokenType::SUPER, TokenType::EOF_                    //
+  };
+
+  Parse::Scanner scanner;
+  auto result = scanner.scan(R"(
+    if else true false and or for while var
+    nil print return fun class this super
+  )");
+  ASSERT_EQ(result.size(), expected_tokens.size());
+  for (std::size_t index = 0; index < expected_tokens.size(); ++index)
+  {
+    ASSERT_EQ(TokenType(result[index]), expected_tokens[index]);
   }
 }
 
 TEST(Scanner, VarExprTest)
 {
-  Parse::Scanner scanner;
+  using namespace ::Parse;
+  Scanner scanner;
   auto result = scanner.scan(R"(
     var a = 1.1
     )");
   ASSERT_TRUE(result.size() > 0);
-  ASSERT_EQ(Parse::TokenType(result.back()), Parse::TokenType::EOF_);
+  ASSERT_EQ(TokenType(result.back()), TokenType::EOF_);
 }

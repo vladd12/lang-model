@@ -16,14 +16,14 @@ private:
   holder_type m_value;
 
 public:
-  explicit Literal() = delete;
+  explicit Literal() noexcept;
 
   Literal(const std::uint64_t value) noexcept;
   Literal(const std::int64_t value) noexcept;
   Literal(const double value) noexcept;
-  explicit Literal(const bool value) noexcept;
-  explicit Literal(const char value) noexcept;
   explicit Literal(const std::string &value);
+  explicit Literal(const char value) noexcept;
+  explicit Literal(const bool value) noexcept;
 
   holder_type &get() noexcept;
   const holder_type &get() const noexcept;
