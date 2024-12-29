@@ -91,6 +91,30 @@ const Token &GrammarParser::consume(const TokenType type, const std::string_view
   throw ::error(peek(), message);
 }
 
+void GrammarParser::synchronize() noexcept
+{
+  advance();
+  while (!isAtEnd())
+  {
+    if (TokenType(previous()) == TokenType::SEMICOLON)
+      return;
+    switch (TokenType(advance()))
+    {
+    case TokenType::CLASS:
+    case TokenType::FUN:
+    case TokenType::VAR:
+    case TokenType::FOR:
+    case TokenType::IF:
+    case TokenType::WHILE:
+    case TokenType::PRINT:
+    case TokenType::RETURN:
+      return;
+    default:
+      break;
+    }
+  }
+}
+
 ::AST::ExpressionPtr GrammarParser::primary()
 {
   // primary    -> NUMBER | STRING | "true" | "false" | "nil"
@@ -195,6 +219,19 @@ const Token &GrammarParser::consume(const TokenType type, const std::string_view
 {
   // expression -> equality ;
   return equality();
+}
+
+::AST::ExpressionPtr GrammarParser::parse(bool *check)
+{
+  try
+  {
+    return expression();
+  } catch (const ParseError &error)
+  {
+    if (check)
+      *check = false;
+    return ::AST::ExpressionPtr(nullptr);
+  }
 }
 
 } // namespace Parse

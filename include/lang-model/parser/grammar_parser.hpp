@@ -21,6 +21,7 @@ private:
   [[nodiscard]] bool match(const std::vector<TokenType> &types) noexcept;
 
   const Token &consume(const TokenType type, const std::string_view &message);
+  void synchronize() noexcept;
 
   [[nodiscard]] ::AST::ExpressionPtr primary();
   [[nodiscard]] ::AST::ExpressionPtr unary();
@@ -33,6 +34,8 @@ private:
 public:
   explicit GrammarParser() = delete;
   explicit GrammarParser(const std::vector<Token> &tokens) noexcept;
+
+  [[nodiscard]] ::AST::ExpressionPtr parse(bool *check = nullptr);
 };
 
 } // namespace Parse
