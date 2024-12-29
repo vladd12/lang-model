@@ -37,7 +37,8 @@ private:
 
 public:
   explicit Scanner();
-  std::vector<Token> scan(const std::string_view &source);
+
+  [[nodiscard]] std::vector<Token> scan(const std::string_view &source);
 };
 
 } // namespace Parse

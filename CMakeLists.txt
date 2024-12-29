@@ -32,8 +32,9 @@ set(LANG_MODEL_PUBLIC_HEADERS
   "${LANG_MODEL_HDR_DIR}/export.hpp"
   # Work with files and this parsing
   "${LANG_MODEL_HDR_DIR}/parser/file_reader.hpp"
-  "${LANG_MODEL_HDR_DIR}/parser/scanner.hpp"
   "${LANG_MODEL_HDR_DIR}/parser/token.hpp"
+  "${LANG_MODEL_HDR_DIR}/parser/scanner.hpp"
+  "${LANG_MODEL_HDR_DIR}/parser/grammar_parser.hpp"
   # Some interpreter and compilator tools
   "${LANG_MODEL_HDR_DIR}/utils/error_handler.hpp"
   "${LANG_MODEL_HDR_DIR}/utils/interpreter.hpp"
@@ -54,8 +55,9 @@ set(LANG_MODEL_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LANG_MODEL_SOURCES
   # Work with files and this parsing
   "${LANG_MODEL_SRC_DIR}/parser/file_reader.cpp"
-  "${LANG_MODEL_SRC_DIR}/parser/scanner.cpp"
   "${LANG_MODEL_SRC_DIR}/parser/token.cpp"
+  "${LANG_MODEL_SRC_DIR}/parser/scanner.cpp"
+  "${LANG_MODEL_SRC_DIR}/parser/grammar_parser.cpp"
   # Some interpreter and compilator tools
   "${LANG_MODEL_SRC_DIR}/utils/error_handler.cpp"
   "${LANG_MODEL_SRC_DIR}/utils/interpreter.cpp"
