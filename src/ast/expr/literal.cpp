@@ -5,7 +5,7 @@
 namespace AST
 {
 
-Literal::Literal() noexcept : Expression()
+Literal::Literal() noexcept : Expression(), m_value(nil_value {})
 {
 }
 

@@ -57,7 +57,8 @@ TEST(AstPrinter, MixedLiteralsTest)
   /// TODO: well, here we are calling bool ctor... Fix me?
   ExpressionPtr str_value(new Literal("this is string"));
   result = printer.toString(*str_value);
-  /// TODO: not valueless, cause default ctor is called for variant
+  // ASSERT_EQ(result, "'this is string'");
   ExpressionPtr nil_value(new Literal);
   result = printer.toString(*nil_value);
+  ASSERT_EQ(result, "nil");
 }

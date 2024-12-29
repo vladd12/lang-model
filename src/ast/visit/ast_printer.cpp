@@ -29,12 +29,6 @@ void AstPrinter::visit(Grouping &expression)
 void AstPrinter::visit(Literal &expression)
 {
   auto &stored_value = expression.get();
-  if (stored_value.valueless_by_exception())
-  {
-    m_str += "nil";
-    return;
-  }
-
   std::visit( //
     ::Utils::overloaded {
       [this](const std::uint64_t value) { m_str += std::to_string(value); },
@@ -42,6 +36,7 @@ void AstPrinter::visit(Literal &expression)
       [this](const double value) { m_str += std::to_string(value); },
       [this](const char value) { m_str += fmt::format("'{0}'", value); },
       [this](const std::string &value) { m_str += fmt::format("'{0}'", value); },
+      [this](const nil_value val) { m_str += "nil"; },
       [this](const bool value) {
         if (value)
           m_str += "true";

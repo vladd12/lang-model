@@ -7,10 +7,14 @@
 namespace AST
 {
 
+struct nil_value
+{
+};
+
 class libapi Literal final : public Expression
 {
 public:
-  using holder_type = std::variant<std::uint64_t, std::int64_t, double, bool, char, std::string>;
+  using holder_type = std::variant<std::uint64_t, std::int64_t, double, bool, char, std::string, nil_value>;
 
 private:
   holder_type m_value;
