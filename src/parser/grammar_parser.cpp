@@ -4,7 +4,23 @@
 #include <lang-model/ast/expr/grouping.hpp>
 #include <lang-model/ast/expr/literal.hpp>
 #include <lang-model/ast/expr/unary.hpp>
+#include <lang-model/parser/parse_error.hpp>
+#include <lang-model/utils/error_handler.hpp>
 #include <lang-model/utils/utils.hpp>
+
+namespace
+{
+
+::Parse::ParseError error(const ::Parse::Token &token, const std::string_view &message)
+{
+  ::Utils::ErrorHandler::error(token, message);
+  return ::Parse::ParseError(message.data());
+}
+
+} // anonymous namespace
+
+namespace Parse
+{
 
 /*
 Expression grammar:
@@ -19,9 +35,6 @@ unary      -> ( "!" | "-" ) unary
 primary    -> NUMBER | STRING | "true" | "false" | "nil"
             | "(" expression ")" ;
 */
-
-namespace Parse
-{
 
 GrammarParser::GrammarParser(const std::vector<Token> &tokens) noexcept : m_tokens(tokens), m_current(0)
 {
@@ -71,6 +84,13 @@ bool GrammarParser::match(const std::vector<TokenType> &types) noexcept
   return false;
 }
 
+const Token &GrammarParser::consume(const TokenType type, const std::string_view &message)
+{
+  if (check(type))
+    return advance();
+  throw ::error(peek(), message);
+}
+
 ::AST::ExpressionPtr GrammarParser::primary()
 {
   // primary    -> NUMBER | STRING | "true" | "false" | "nil"
@@ -93,18 +113,17 @@ bool GrammarParser::match(const std::vector<TokenType> &types) noexcept
     case TokenType::NIL:
       return ::AST::ExpressionPtr(new ::AST::Literal());
     default:
-      throw std::exception("Unexpected token");
+      throw ::error(token, "Unexpected token.");
     }
   }
   if (match({ TokenType::LEFT_PAREN }))
   {
     auto expr = expression();
-    // consume(TokenType::RIGHT_PAREN, "Expect ')' after expression.");
+    consume(TokenType::RIGHT_PAREN, "Expect ')' after expression.");
     return ::AST::ExpressionPtr(new ::AST::Grouping(expr));
   }
 
-  /// TODO: well, are we must throw exception here?
-  return nullptr;
+  throw ::error(peek(), "Expect expression.");
 }
 
 ::AST::ExpressionPtr GrammarParser::unary()

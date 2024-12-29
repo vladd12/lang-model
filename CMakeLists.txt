@@ -34,6 +34,7 @@ set(LANG_MODEL_PUBLIC_HEADERS
   "${LANG_MODEL_HDR_DIR}/parser/file_reader.hpp"
   "${LANG_MODEL_HDR_DIR}/parser/token.hpp"
   "${LANG_MODEL_HDR_DIR}/parser/scanner.hpp"
+  "${LANG_MODEL_HDR_DIR}/parser/parse_error.hpp"
   "${LANG_MODEL_HDR_DIR}/parser/grammar_parser.hpp"
   # Some interpreter and compilator tools
   "${LANG_MODEL_HDR_DIR}/utils/error_handler.hpp"
@@ -57,6 +58,7 @@ set(LANG_MODEL_SOURCES
   "${LANG_MODEL_SRC_DIR}/parser/file_reader.cpp"
   "${LANG_MODEL_SRC_DIR}/parser/token.cpp"
   "${LANG_MODEL_SRC_DIR}/parser/scanner.cpp"
+  "${LANG_MODEL_SRC_DIR}/parser/parse_error.cpp"
   "${LANG_MODEL_SRC_DIR}/parser/grammar_parser.cpp"
   # Some interpreter and compilator tools
   "${LANG_MODEL_SRC_DIR}/utils/error_handler.cpp"

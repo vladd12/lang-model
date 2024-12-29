@@ -30,4 +30,9 @@ const std::string_view &Token::lexeme() const noexcept
   return m_lexeme;
 }
 
+std::uint64_t Token::line() const noexcept
+{
+  return m_line;
+}
+
 } // namespace Parse

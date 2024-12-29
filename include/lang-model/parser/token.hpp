@@ -70,6 +70,7 @@ public:
 
   [[nodiscard]] std::string_view &lexeme() noexcept;
   [[nodiscard]] const std::string_view &lexeme() const noexcept;
+  [[nodiscard]] std::uint64_t line() const noexcept;
 };
 
 } // namespace Parse

@@ -20,6 +20,8 @@ private:
   [[nodiscard]] bool check(const TokenType type) const noexcept;
   [[nodiscard]] bool match(const std::vector<TokenType> &types) noexcept;
 
+  const Token &consume(const TokenType type, const std::string_view &message);
+
   [[nodiscard]] ::AST::ExpressionPtr primary();
   [[nodiscard]] ::AST::ExpressionPtr unary();
   [[nodiscard]] ::AST::ExpressionPtr factor();
